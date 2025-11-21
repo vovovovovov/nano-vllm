@@ -2,3 +2,18 @@
 git config --list
 git config --global user.name "你的用户名"
 git config --global user.email "你的邮箱地址"
+
+# 部署环境
+conda create -n nano_vllm python=3.10 --y
+conda activate nano_vllm
+pip install -e .
+
+# 安装flash-attn (找github上编译好的： flash_attn-2.8.3+cu12torch2.8cxx11abiTRUE-cp310-cp310-linux_x86_64.whl)
+pip install flash_attn-2.8.3+cu12torch2.8cxx11abiTRUE-cp310-cp310-linux_x86_64.whl
+pip install xxhash
+
+# 下载模型
+pip install -U modelscope
+modelscope download \
+  --model Qwen/Qwen3-0.6B \
+  --local_dir /root/autodl-tmp/huggingface/Qwen3-0.6B

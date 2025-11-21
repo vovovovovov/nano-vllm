@@ -6,6 +6,7 @@ import torch.distributed as dist
 from nanovllm.utils.context import get_context
 
 
+# 并行化embedding
 class VocabParallelEmbedding(nn.Module):
 
     def __init__(

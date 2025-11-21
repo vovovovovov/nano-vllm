@@ -116,6 +116,7 @@ class Qwen3MLP(nn.Module):
         return x
 
 
+# decoder层
 class Qwen3DecoderLayer(nn.Module):
 
     def __init__(

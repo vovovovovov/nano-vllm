@@ -12,6 +12,7 @@ from nanovllm.utils.context import set_context, get_context, reset_context
 from nanovllm.utils.loader import load_model
 
 
+# 模型运行类
 class ModelRunner:
 
     def __init__(self, config: Config, rank: int, event: Event | list[Event]):
@@ -20,9 +21,10 @@ class ModelRunner:
         self.block_size = config.kvcache_block_size
         self.enforce_eager = config.enforce_eager
         self.world_size = config.tensor_parallel_size
-        self.rank = rank
+        self.rank = rank                                    # 进程编号
         self.event = event
 
+        # pytorch分布式初始化：backend（通信后端），init_method（初始化通信方式），world_size（总进程数），rank（当前进程编号）
         dist.init_process_group("nccl", "tcp://localhost:2333", world_size=self.world_size, rank=rank)
         torch.cuda.set_device(rank)
         default_dtype = torch.get_default_dtype()
